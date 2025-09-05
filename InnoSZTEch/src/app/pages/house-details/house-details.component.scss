@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  max-width: 900px;
+  max-width: 1200px;
   margin: 3rem auto;
   padding: 2rem;
   background-color: #f9f9f9;
@@ -13,17 +13,28 @@
 
 .main-content-wrapper {
   display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.left-panel {
+  display: flex;
   flex-direction: column;
   gap: 2rem;
+  flex: 1;
+  min-width: 300px;
+}
 
-  @media (min-width: 768px) {
-    flex-direction: row;
-    justify-content: space-between;
-  }
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  flex: 1;
+  min-width: 300px;
 }
 
 .house-info-panel, .device-management-panel {
-  flex: 1;
   padding: 1.5rem;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -48,10 +59,10 @@ h3, h4 {
   padding: 1rem;
   background-color: #f0f0f0;
   border-radius: 8px;
-  p {
-    margin: 0.5rem 0;
-    font-size: 1.1em;
-  }
+}
+.details-card p {
+  margin: 0.5rem 0;
+  font-size: 1.1em;
 }
 
 .add-device-form {
@@ -77,48 +88,45 @@ h3, h4 {
   background-color: #4CAF50;
   color: white;
   transition: background-color 0.3s ease;
-  &:hover {
-    background-color: #45a049;
-  }
-  &:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
+}
+.primary-button:hover {
+  background-color: #45a049;
+}
+.primary-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
-.device-list-container {
-  h4 {
-    margin-top: 2rem;
-  }
+.device-list-container h4 {
+  margin-top: 2rem;
 }
 
 .device-list {
   list-style: none;
   padding: 0;
-  li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.8rem 0;
-    border-bottom: 1px solid #eee;
-    &:last-child {
-      border-bottom: none;
-    }
-  }
+}
+.device-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #eee;
+}
+.device-list li:last-child {
+  border-bottom: none;
 }
 
 .usage-summary {
   margin-top: 2rem;
   text-align: center;
-  .usage-number {
-    font-size: 2.5em;
-    font-weight: bold;
-    color: #e74c3c;
-  }
+}
+.usage-summary .usage-number {
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #e74c3c;
 }
 
-.chart-container {
-  max-width: 100%;
+.chart-container-bar, .chart-container-pie {
   padding: 1.5rem;
   background-color: #fff;
   border-radius: 12px;
@@ -140,12 +148,11 @@ h3, h4 {
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  &:hover {
-    background-color: #2980b9;
-  }
+}
+.go-back-button:hover {
+  background-color: #2980b9;
 }
 
-/* Switch styling for devices */
 .switch {
   position: relative;
   display: inline-block;
@@ -194,39 +201,22 @@ input:focus + .slider {
 input:checked + .slider:before {
   transform: translateX(20px);
 }
-.chart-container {
-  position: fixed;
-  bottom: 1rem;
-  left: 42%;
-  transform: translateX(-50%);
-  width: 90%;
-  max-width: 400px;
-  height: 180px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 -2px 8px rgba(0,0,0,0.15);
-  padding: 0.5rem 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.button-group-bottom {
-  position: fixed;
-  bottom: 1rem;
-  left: 1rem;
-  z-index: 20;
+
+.most-consuming-info {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f0fff0;
+  border: 1px solid #c8e6c9;
 }
 
-.go-back-button {
-  padding: 0.8rem 1.5rem;
-  border: none;
-  border-radius: 8px;
-  background-color: #3498db;
-  color: white;
+.most-consuming-device {
   font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  &:hover {
-    background-color: #2980b9;
-  }
+  color: #e74c3c;
+}
+
+.tips-text {
+  font-size: 0.9em;
+  color: #555;
+  line-height: 1.4;
 }

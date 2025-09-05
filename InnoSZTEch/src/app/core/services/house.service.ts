@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Chart } from 'chart.js/auto';
+
 export interface ElectricDevice {
   id: string; 
   name: string;
@@ -23,7 +23,12 @@ export class HouseService {
     { area: 120, address: 'Kossuth Lajos utca 1.', name: 'Családi ház', currentWattage: 0, devices: [] }
   ];
 
-  constructor() { }
+  totalEnergyKWh: number = 0;
+  private intervalId: any;
+
+  constructor() {
+    this.startEnergyCounter();
+  }
 
   getAllHouses(): House[] {
     return this.houses;
@@ -60,5 +65,23 @@ export class HouseService {
     house.currentWattage = house.devices.reduce((total, device) => {
       return total + (device.active ? device.wattage : 0);
     }, 0);
+  }
+
+  private startEnergyCounter() {
+    const intervalSeconds = 1;
+    this.intervalId = setInterval(() => {
+      this.houses.forEach(house => {
+        house.devices.forEach(device => {
+          if (device.active) {
+            const kWh = (device.wattage * intervalSeconds) / (1000 * 3600);
+            this.totalEnergyKWh += kWh;
+          }
+        });
+      });
+    }, intervalSeconds * 1000);
+  }
+
+  getTotalEnergyKWh(): number {
+    return this.totalEnergyKWh;
   }
 }
