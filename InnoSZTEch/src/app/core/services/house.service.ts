@@ -19,9 +19,7 @@ export interface House {
   providedIn: 'root'
 })
 export class HouseService {
-  private houses: House[] = [
-    { area: 120, address: 'Kossuth Lajos utca 1.', name: 'Családi ház', currentWattage: 0, devices: [] }
-  ];
+   private houses: House[] = [];
 
   totalEnergyKWh: number = 0;
   private intervalId: any;

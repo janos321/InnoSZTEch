@@ -14,7 +14,7 @@ export class HouseFormComponent {
 
   houseName: string = '';
   houseAddress: string = '';
-  houseArea: number = 0;
+   houseArea: number | null = null;
 
   submit() {
     if (this.houseName && this.houseAddress && this.houseArea) {
