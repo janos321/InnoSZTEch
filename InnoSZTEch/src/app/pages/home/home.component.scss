@@ -1,0 +1,55 @@
+.home-container {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, var(--light-green), #d0f0e0);
+  min-height: 100vh; /* Megoldás, hogy a tartalom kitöltse a képernyőt */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    font-size: 2.2rem;
+    color: var(--dark-green);
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  /* Gombok stílusa */
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem; /* Távolság a gombok között */
+  }
+
+  button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .profil-button {
+    background: #4CAF50; /* Zöld szín a profil gombnak */
+
+    &:hover {
+      background: #45a049;
+    }
+  }
+  
+  .logout-button {
+    background: #e74c3c; /* Piros szín a logout gombnak */
+
+    &:hover {
+      background: #c0392b;
+    }
+  }
+}

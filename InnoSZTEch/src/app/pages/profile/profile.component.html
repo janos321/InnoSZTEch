@@ -1,0 +1,10 @@
+<div class="profile-container" *ngIf="user">
+  <h2>Profil</h2>
+  <p><b>Név:</b> {{ user.name }}</p>
+  <p><b>Email:</b> {{ user.email }}</p>
+  
+  <div class="button-group">
+    <button type="button" (click)="goToFooldal()" class="primary-button">Vissza a főoldalra</button>
+    <button type="button" (click)="logout()" class="secondary-button">Kijelentkezés</button>
+  </div>
+</div>
