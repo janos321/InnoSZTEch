@@ -1,9 +1,12 @@
-<div class="home-container">
-  <h1>Welcome!</h1>
-  <p>You are logged in.</p>
-
+<header class="home-header">
+  <h1>Üdvözöllek!</h1>
   <div class="button-group">
-    <button type="button" (click)="goToProfil()" class="profil-button">Profil</button>
-    <button type="button" (click)="logout()" class="logout-button">Logout</button>
+    <button type="button" (click)="goToProfil()" class="primary-button">Profil</button>
+    <button type="button" (click)="logout()" class="secondary-button">Kijelentkezés</button>
   </div>
+</header>
+
+<div class="home-content-container">
+  <app-house-form (houseAdded)="onHouseAdded($event)"></app-house-form>
+  <app-house-list [houses]="houses"></app-house-list>
 </div>

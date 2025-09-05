@@ -1,0 +1,9 @@
+<div class="form-container">
+  <h3>Új ház hozzáadása</h3>
+  <form (ngSubmit)="submit()">
+    <input type="text" [(ngModel)]="houseName" name="houseName" placeholder="Ház neve" required />
+    <input type="text" [(ngModel)]="houseAddress" name="houseAddress" placeholder="Cím" required />
+    <input type="number" [(ngModel)]="houseArea" name="houseArea" placeholder="Alapterület (m²)" required />
+    <button type="submit" class="primary-button">Hozzáadás</button>
+  </form>
+</div>

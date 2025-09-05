@@ -1,0 +1,14 @@
+<div class="details-container">
+  <div *ngIf="house">
+    <h2>{{ house.name }}</h2>
+    <div class="details-card">
+      <p><b>Cím:</b> {{ house.address }}</p>
+      <p><b>Alapterület:</b> {{ house.area }} m²</p>
+    </div>
+    <p>Itt tudsz elektromos eszközöket hozzáadni a házhoz.</p>
+  </div>
+  <div *ngIf="!house">
+    <p>A ház adatai nem találhatók.</p>
+  </div>
+  <button (click)="goBack()" class="go-back-button">Vissza a főoldalra</button>
+</div>
