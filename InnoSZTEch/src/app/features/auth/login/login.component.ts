@@ -18,14 +18,19 @@ export class LoginComponent {
 
   constructor(private auth: AuthService, private router: Router) {}
 
-  submit() {
-    if (this.auth.login(this.email, this.password)) {
-      this.error = '';
-      this.router.navigate(['/home']);
-    } else {
-      this.error = 'Invalid email or password';
-    }
+  onLogin() {
+    this.auth.login({ email: this.email, password: this.password })
+      .subscribe({
+        next: (res: any) => {
+          console.log('Sikeres belépés', res);
+          if (res.token) {
+            this.auth.saveToken(res.token);
+          }
+        },
+        error: err => console.error('Hiba:', err)
+      });
   }
+  
   goToRegister() {
     this.router.navigate(['/register']);
   }

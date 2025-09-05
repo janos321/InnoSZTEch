@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 export interface User {
   name: string;
@@ -10,10 +12,21 @@ export interface User {
   providedIn: 'root'
 })
 export class AuthService {
+  private apiUrl = 'http://<api-server-ip>:3000/users';
+
   private storageKey = 'users';
   private currentUserKey = 'currentUser';
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
+
+  register(email: string, password: string, name?: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, {
+      email,
+      password,
+      name,
+      userdata: {}        
+    });
+  }
 
   getAllUsers(): User[] {
     const users = localStorage.getItem(this.storageKey);
@@ -24,7 +37,7 @@ export class AuthService {
     localStorage.setItem(this.storageKey, JSON.stringify(users));
   }
 
-  register(name: string, email: string, password: string): boolean {
+  /*register(name: string, email: string, password: string): boolean {
     const users = this.getAllUsers();
 
     if (users.find(u => u.email === email)) {
@@ -34,22 +47,22 @@ export class AuthService {
     users.push({ name, email, password });
     this.saveAllUsers(users);
     return true;
+  }*/
+
+  login(credentials: { email: string; password: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, credentials);
   }
 
-  login(email: string, password: string): boolean {
-    const users = this.getAllUsers();
-    const user = users.find(u => u.email === email && u.password === password);
-
-    if (user) {
-      localStorage.setItem(this.currentUserKey, JSON.stringify(user));
-      return true;
-    }
-
-    return false;
+  logout(): void {
+    localStorage.removeItem('token');
   }
 
-  logout() {
-    localStorage.removeItem(this.currentUserKey);
+  saveToken(token: string) {
+    localStorage.setItem('token', token);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
   }
 
   getCurrentUser(): User | null {

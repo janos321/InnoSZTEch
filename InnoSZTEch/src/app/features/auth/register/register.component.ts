@@ -27,18 +27,21 @@ export class RegisterComponent {
       return;
     }
 
-    const registered = this.auth.register(this.name, this.email, this.password);
-
-    if (registered) {
-      this.success = 'Registration successful! You can now login.';
-      this.error = '';
-      setTimeout(() => this.router.navigate(['/login']), 1500);
-    } else {
-      this.error = 'Email already exists!';
-      this.success = '';
-    }
+    this.auth.register(this.email, this.password, this.name).subscribe({
+      next: () => {
+        this.success = 'Registration successful! You can now login.';
+        this.error = '';
+        setTimeout(() => this.router.navigate(['/login']), 1500);
+      },
+      error: (err) => {
+        console.error(err);
+        this.error = err.status === 409 ? 'Email already exists!' : 'Server error';
+        this.success = '';
+      }
+    });
   }
-goToLogin() {
+
+  goToLogin() {
     this.router.navigate(['/login']);
   }
 
