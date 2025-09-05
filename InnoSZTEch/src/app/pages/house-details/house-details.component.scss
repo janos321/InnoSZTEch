@@ -1,19 +1,232 @@
 .details-container {
-  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 900px;
   margin: 3rem auto;
   padding: 2rem;
-  background-color: #fff;
+  background-color: #f9f9f9;
   border-radius: 12px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-  h2 {
-    color: #4CAF50;
-    margin-bottom: 1rem;
+.main-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
   }
-  
+}
+
+.house-info-panel, .device-management-panel {
+  flex: 1;
+  padding: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+  color: #4CAF50;
+  font-size: 2.2em;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+h3, h4 {
+  color: #333;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.details-card {
+  padding: 1rem;
+  background-color: #f0f0f0;
+  border-radius: 8px;
   p {
-    font-size: 1.2em;
-    color: #555;
+    margin: 0.5rem 0;
+    font-size: 1.1em;
+  }
+}
+
+.add-device-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.device-select {
+  padding: 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+}
+
+.primary-button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: #45a049;
+  }
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+}
+
+.device-list-container {
+  h4 {
+    margin-top: 2rem;
+  }
+}
+
+.device-list {
+  list-style: none;
+  padding: 0;
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #eee;
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+.usage-summary {
+  margin-top: 2rem;
+  text-align: center;
+  .usage-number {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #e74c3c;
+  }
+}
+
+.chart-container {
+  max-width: 100%;
+  padding: 1.5rem;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.button-group-bottom {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.go-back-button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #3498db;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: #2980b9;
+  }
+}
+
+/* Switch styling for devices */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 45px;
+  height: 25px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 25px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 17px;
+  width: 17px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #4CAF50;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #4CAF50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(20px);
+}
+.chart-container {
+  position: fixed;
+  bottom: 1rem;
+  left: 42%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 400px;
+  height: 180px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.15);
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button-group-bottom {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 20;
+}
+
+.go-back-button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #3498db;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: #2980b9;
   }
 }

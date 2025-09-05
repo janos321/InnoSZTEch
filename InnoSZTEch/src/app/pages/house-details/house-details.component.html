@@ -1,14 +1,53 @@
 <div class="details-container">
-  <div *ngIf="house">
-    <h2>{{ house.name }}</h2>
-    <div class="details-card">
-      <p><b>Cím:</b> {{ house.address }}</p>
-      <p><b>Alapterület:</b> {{ house.area }} m²</p>
+  <div *ngIf="house" class="main-content-wrapper">
+    <div class="house-info-panel">
+      <h2>{{ house.name }}</h2>
+      <div class="details-card">
+        <p><b>Cím:</b> {{ house.address }}</p>
+        <p><b>Alapterület:</b> {{ house.area }} m²</p>
+      </div>
     </div>
-    <p>Itt tudsz elektromos eszközöket hozzáadni a házhoz.</p>
+
+    <div class="device-management-panel">
+      <h3>Eszközök hozzáadása</h3>
+      <div class="add-device-form">
+        <select [(ngModel)]="selectedDevice" class="device-select">
+          <option disabled selected value="Válassz eszközt">Válassz eszközt</option>
+          <option *ngFor="let device of deviceOptions" [value]="device.name">{{ device.name }} ({{ device.wattage }} W)</option>
+        </select>
+        <button (click)="addDevice()" class="primary-button add-button" [disabled]="selectedDevice === 'Válassz eszközt'">
+          Hozzáadás
+        </button>
+      </div>
+
+      <div class="device-list-container">
+        <h4>Hozzáadott eszközök</h4>
+        <ul class="device-list">
+          <li *ngFor="let device of house.devices">
+            <span>{{ device.name }} ({{ device.wattage }} W)</span>
+            <label class="switch">
+              <input type="checkbox" [checked]="device.active" (change)="toggleDevice(device)">
+              <span class="slider"></span>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="usage-summary">
+        <h4>Jelenlegi energiafelhasználás:</h4>
+        <p class="usage-number">{{ currentWattage }} W</p>
+      </div>
+    </div>
   </div>
-  <div *ngIf="!house">
+  <div *ngIf="!house" class="not-found-message">
     <p>A ház adatai nem találhatók.</p>
   </div>
-  <button (click)="goBack()" class="go-back-button">Vissza a főoldalra</button>
+
+  <div class="chart-container">
+    <canvas id="energyChart"></canvas>
+  </div>
+
+  <div class="button-group-bottom">
+    <button (click)="goBack()" class="go-back-button">Vissza a főoldalra</button>
+  </div>
 </div>

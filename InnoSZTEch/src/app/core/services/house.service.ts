@@ -1,9 +1,18 @@
 import { Injectable } from '@angular/core';
+import { Chart } from 'chart.js/auto';
+export interface ElectricDevice {
+  id: string; 
+  name: string;
+  wattage: number;
+  active: boolean;
+}
 
 export interface House {
   area: number;
   address: string;
   name: string;
+  currentWattage: number;
+  devices: ElectricDevice[];
 }
 
 @Injectable({
@@ -11,7 +20,7 @@ export interface House {
 })
 export class HouseService {
   private houses: House[] = [
-    { area: 120, address: 'Kossuth Lajos utca 1.', name: 'Családi ház' }
+    { area: 120, address: 'Kossuth Lajos utca 1.', name: 'Családi ház', currentWattage: 0, devices: [] }
   ];
 
   constructor() { }
@@ -25,6 +34,31 @@ export class HouseService {
   }
 
   addHouse(newHouse: House) {
-    this.houses.push(newHouse);
+    this.houses.push({ ...newHouse, currentWattage: 0, devices: [] });
+  }
+
+  addDevice(houseName: string, device: ElectricDevice) {
+    const house = this.getHouseByName(houseName);
+    if (house) {
+      house.devices.push(device);
+      this.updateHouseWattage(house);
+    }
+  }
+
+  toggleDevice(houseName: string, deviceId: string) {
+    const house = this.getHouseByName(houseName);
+    if (house) {
+      const device = house.devices.find(d => d.id === deviceId);
+      if (device) {
+        device.active = !device.active;
+        this.updateHouseWattage(house);
+      }
+    }
+  }
+
+  private updateHouseWattage(house: House) {
+    house.currentWattage = house.devices.reduce((total, device) => {
+      return total + (device.active ? device.wattage : 0);
+    }, 0);
   }
 }
