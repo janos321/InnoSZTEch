@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 export interface User {
   name: string;
@@ -8,19 +9,35 @@ export interface User {
   password: string;
 }
 
+export interface LoginResponse {
+  name?: string;
+  email: string;
+  userdata?: any;
+}
+
+export interface LoginResponse {
+  ok: boolean;
+  user?: User;
+  error?: string;
+}
+
+export interface RegisterResponse {
+  ok: boolean;
+  error?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://<api-server-ip>:3000/users';
-
-  private storageKey = 'users';
+  private apiUrl = 'http://192.168.2.161:3000';
   private currentUserKey = 'currentUser';
+  private isLoggedInKey = 'isLoggedIn';
 
   constructor(private http: HttpClient) {}
 
-  register(email: string, password: string, name?: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, {
+  register(email: string, password: string, name?: string): Observable<RegisterResponse> {
+    return this.http.post<RegisterResponse>(`${this.apiUrl}/register`, {
       email,
       password,
       name,
@@ -28,41 +45,25 @@ export class AuthService {
     });
   }
 
-  getAllUsers(): User[] {
-    const users = localStorage.getItem(this.storageKey);
-    return users ? JSON.parse(users) : [];
-  }
-
-  saveAllUsers(users: User[]) {
-    localStorage.setItem(this.storageKey, JSON.stringify(users));
-  }
-
-  /*register(name: string, email: string, password: string): boolean {
-    const users = this.getAllUsers();
-
-    if (users.find(u => u.email === email)) {
-      return false; // email already exists
-    }
-
-    users.push({ name, email, password });
-    this.saveAllUsers(users);
-    return true;
-  }*/
-
-  login(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials);
+  login(credentials: { email: string; password: string }): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credentials)
+      .pipe(
+        tap(response => {
+          if (response.ok && response.user) {
+            this.saveCurrentUser(response.user);
+            localStorage.setItem(this.isLoggedInKey, 'true');
+          }
+        })
+      );
   }
 
   logout(): void {
-    localStorage.removeItem('token');
+    localStorage.removeItem(this.currentUserKey);
+    localStorage.removeItem(this.isLoggedInKey);
   }
 
-  saveToken(token: string) {
-    localStorage.setItem('token', token);
-  }
-
-  getToken(): string | null {
-    return localStorage.getItem('token');
+  saveCurrentUser(user: User): void {
+    localStorage.setItem(this.currentUserKey, JSON.stringify(user));
   }
 
   getCurrentUser(): User | null {
@@ -71,6 +72,10 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return !!this.getCurrentUser();
+    return localStorage.getItem(this.isLoggedInKey) === 'true';
+  }
+
+  checkHealth(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/health`);
   }
 }

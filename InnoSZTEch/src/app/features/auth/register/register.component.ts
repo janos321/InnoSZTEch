@@ -1,48 +1,73 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { AuthService, RegisterResponse } from '../../../core/services/auth.service';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../../core/services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  imports: [CommonModule, FormsModule],
+  styleUrls: ['./register.component.scss'] 
 })
 export class RegisterComponent {
-  name = '';
-  email = '';
-  password = '';
-  error = '';
-  success = '';
+  name: string = '';
+  email: string = '';
+  password: string = '';
+  error: string = '';
+  success: string = '';
+  loading: boolean = false;
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
-  submit() {
-    if (!this.name || !this.email || !this.password) {
-      this.error = 'Please fill all fields';
-      this.success = '';
+  submit(): void {
+    if (!this.email || !this.password) {
+      this.error = 'Email and password are required';
       return;
     }
 
-    this.auth.register(this.email, this.password, this.name).subscribe({
-      next: () => {
-        this.success = 'Registration successful! You can now login.';
-        this.error = '';
-        setTimeout(() => this.router.navigate(['/login']), 1500);
-      },
-      error: (err) => {
-        console.error(err);
-        this.error = err.status === 409 ? 'Email already exists!' : 'Server error';
-        this.success = '';
-      }
-    });
+    if (this.password.length < 6) {
+      this.error = 'Password must be at least 6 characters long';
+      return;
+    }
+
+    this.loading = true;
+    this.error = '';
+    this.success = '';
+
+    this.authService.register(this.email.trim(), this.password, this.name.trim() || undefined)
+      .subscribe({
+        next: (response: RegisterResponse) => {
+          this.loading = false;
+          
+          if (response.ok) {
+            this.success = 'Registration successful! Redirecting to login...';
+            
+            setTimeout(() => {
+              this.router.navigate(['/login']);
+            }, 2000);
+          } else {
+            this.error = response.error || 'Registration failed';
+          }
+        },
+        error: (error) => {
+          this.loading = false;
+          
+          if (error.status === 0) {
+            this.error = 'Cannot connect to server. Please try again later.';
+          } else if (error.error?.error) {
+            this.error = error.error.error;
+          } else {
+            this.error = 'Registration failed. Please try again.';
+          }
+        }
+      });
   }
 
-  goToLogin() {
+  goToLogin(): void {
     this.router.navigate(['/login']);
   }
-
 }
