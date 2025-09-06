@@ -42,7 +42,7 @@ Routing
 Navigation between login, register, home, and profile pages is handled using Angular's Router.
 Navigation links use [routerLink] for SPA navigation.
 
-HouseListComponent
+5. HouseListComponent
 Location: src/app/pages/home/house-list/house-list.component.ts 
 Purpose:
 Displays a list of all houses.
@@ -50,17 +50,16 @@ Key Features:
 Fetches the house list from HouseService on initialization.
 Displays each house's name, address, and area.
 
-HomeComponent
+6. HomeComponent
 Location: src/app/pages/home/home.component.ts 
 Purpose:
 Acts as the dashboard or landing page after login.
 Key Features:
-
 Displays a welcome message.
 Embeds HouseListComponent and HouseFormComponent.
 Handles navigation to house details or other features.
 
-HouseDetailsComponent
+7. HouseDetailsComponent
 Location: src/app/pages/house-details/house-details.component.ts 
 Purpose:
 Displays detailed information about a single house,and lets you edit and add new electric devices to the house
@@ -72,9 +71,9 @@ Provides useful graphs and tips about energy usage in the given house
 
 Services
 
-AuthService (referenced in LoginComponent): Handles authentication logic such as login and logout.
+1. AuthService (referenced in LoginComponent): Handles authentication logic such as login and logout.
 
-HouseService
+2. HouseService
 Location: src/app/core/services/house.service.ts 
 Purpose:
 Handles all business logic and HTTP requests related to houses.
