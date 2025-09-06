@@ -1,6 +1,13 @@
 
 This is an Angular project that is a web application for energy management in houses, with features such as adding and viewing new houses,adding and viewing devices to each house,and viewing how much energy they use up in real time,while providing useful charts.
 
+
+Architecture diagram:
+
+
+![Architecture Diagram](Architecturediagram.drawio.png)
+
+
 Components
 
 1. LoginComponent
