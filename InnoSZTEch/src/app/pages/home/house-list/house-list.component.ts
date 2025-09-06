@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router'; // Új import
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-house-list',
@@ -12,7 +12,7 @@ import { Router } from '@angular/router'; // Új import
 export class HouseListComponent {
   @Input() houses: any[] = [];
 
-  constructor(private router: Router) { } // Injektáljuk a Router-t
+  constructor(private router: Router) { } 
 
   goToDetails(house: any) {
     this.router.navigate(['/house-details', house.name]);

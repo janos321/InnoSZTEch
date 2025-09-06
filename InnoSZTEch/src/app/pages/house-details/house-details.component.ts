@@ -188,15 +188,15 @@ export class HouseDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
   getEnergySavingTips(deviceName: string): string {
     switch (deviceName) {
       case 'Mosógép':
-        return 'Csak akkor indítsa el, ha teljesen tele van, és használjon alacsonyabb hőfokú programot. A hidegvizes mosás sokat spórolhat!';
+        return "Only start it when it is completely full, and use a lower temperature program. Cold water washing can save a lot!";
       case 'PC':
-        return 'Kapcsolja ki, ha nem használja, és használjon energiatakarékos üzemmódot. A modern PC-k is sok áramot fogyaszthatnak.';
+        return "Turn it off when not in use, and use energy-saving mode. Modern PCs can also consume a lot of electricity.";
       case 'Tűzhely':
-        return 'Lehetőség szerint fedővel használja a főzőlapot, és használja ki a főzés végeztével a még forró edényeket.';
+        return "Whenever possible, use a lid on the stovetop, and take advantage of the still-hot pots after cooking.";
       case 'Nyomtató':
-        return 'Kapcsolja ki, ha nem használja, és kerülje a készenléti állapotban hagyást.';
+        return "Turn it off when not in use, and avoid leaving it on standby.";
       default:
-        return 'Folyamatosan figyelje a fogyasztását, és próbálja meg a ritkán használt eszközöket kikapcsolni a konnektorból is.';
+        return "Continuously monitor your consumption, and try to unplug rarely used devices as well.";
     }
   }
 }

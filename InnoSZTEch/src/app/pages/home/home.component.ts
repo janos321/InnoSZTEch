@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
 import { HouseListComponent } from './house-list/house-list.component';
 import { HouseFormComponent } from './house-form/house-form.component';
-import { House, HouseService } from '../../core/services/house.service'; // Import the service
+import { House, HouseService } from '../../core/services/house.service'; 
 
 @Component({
   selector: 'app-home',
@@ -19,7 +19,7 @@ export class HomeComponent {
   constructor(
     private auth: AuthService,
     private router: Router,
-    private houseService: HouseService // Inject the new service
+    private houseService: HouseService 
   ) {
     this.houses = this.houseService.getAllHouses();
   }

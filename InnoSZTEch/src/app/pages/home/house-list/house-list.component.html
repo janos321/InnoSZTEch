@@ -1,11 +1,11 @@
 <div class="list-container">
-  <h3>Házak listája</h3>
+  <h3>List of houses</h3>
   <table *ngIf="houses.length > 0">
     <thead>
       <tr>
-        <th>Név</th>
-        <th>Cím</th>
-        <th>Alapterület (m²)</th>
+        <th i18n="@@hazneve">name</th>
+        <th i18n="@@cim">Adress</th>
+        <th i18n="@@alapterulet">Area (m²)</th>
       </tr>
     </thead>
     <tbody>
@@ -16,5 +16,5 @@
       </tr>
     </tbody>
   </table>
-  <p *ngIf="houses.length === 0" class="no-houses-message">Még nincsenek hozzáadott házak.</p>
+  <p *ngIf="houses.length === 0" class="no-houses-message">You have not added any house.</p>
 </div>
