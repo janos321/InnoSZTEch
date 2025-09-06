@@ -1,9 +1,9 @@
 <div class="form-container">
   <h3>Add new house</h3>
   <form (ngSubmit)="submit()">
-    <input i18n="@@hazneve" type="text" [(ngModel)]="houseName" name="houseName" placeholder="Ház neve" required />
-    <input i18n="@@cim" type="text" [(ngModel)]="houseAddress" name="houseAddress" placeholder="Cím" required />
-    <input i18n="@@alapterulet" type="number" [(ngModel)]="houseArea" name="houseArea" placeholder="Alapterület (m²)" required />
+    <input  type="text" [(ngModel)]="houseName" name="houseName" placeholder="Name" required />
+    <input  type="text" [(ngModel)]="houseAddress" name="houseAddress" placeholder="Adress" required />
+    <input  type="number" [(ngModel)]="houseArea" name="houseArea" placeholder="Area (m²)" required />
     <button type="submit" class="primary-button">Add</button>
   </form>
 </div>

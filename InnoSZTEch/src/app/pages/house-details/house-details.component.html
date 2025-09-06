@@ -45,7 +45,7 @@
           <h4>All energy consumption:</h4>
           <p class="usage-number">{{ totalEnergyKWh.toFixed(5) }} kWh</p>
           <div class="most-consuming-info">
-            <h4 i18n="@@mostexpensive">The device that consumes the most energy: <span class="most-consuming-device">{{ mostConsumingDeviceName }}</span></h4>
+            <h4 >The device that consumes the most energy: <span class="most-consuming-device">{{ mostConsumingDeviceName }}</span></h4>
             <p class="tips-text">
               {{ getEnergySavingTips(mostConsumingDeviceName) }}
             </p>
@@ -59,10 +59,10 @@
   </div>
 
   <div *ngIf="!house" class="not-found-message">
-    <p i18n="@@notfound">We cannot found the specified house.</p>
+    <p >We cannot found the specified house.</p>
   </div>
 
   <div class="button-group-bottom">
-    <button i18n="@@goback" (click)="goBack()" class="go-back-button">Back to main page</button>
+    <button  (click)="goBack()" class="go-back-button">Back to main page</button>
   </div>
 </div>
